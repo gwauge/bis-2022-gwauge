@@ -6,7 +6,7 @@ public class ItHandle : MonoBehaviour
 {
     PantoHandle lowerHandle;
     bool free = true;
-    public float speed = 0.1f;
+    public float speed;
     Rigidbody ballRb;
 
     void Start()
@@ -20,8 +20,12 @@ public class ItHandle : MonoBehaviour
         
         await lowerHandle.SwitchTo(gameObject);
         
+        setInitialVelocity();
+    }
+
+    public void setInitialVelocity() {
         float sx = Random.Range(0, 2) == 0 ? -1 : 1;
-        float sy = 1; 
+        float sy = -1; 
         ballRb.velocity = new Vector3(sx * speed, 0, sy * speed);
         // Debug.Log("Velocity: " + ballRb.velocity + "Sxy: " + sx + " " + sy);
     }
@@ -47,10 +51,12 @@ public class ItHandle : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.G))
         {
-            float sx = Random.Range(0, 2) == 0 ? -1 : 1;
-            float sy = 1; 
-            ballRb.velocity = new Vector3(sx * speed, 0, sy * speed);
-            Debug.Log("Velocity: " + ballRb.velocity);
+            setInitialVelocity();
+        }
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            transform.position = new Vector3(0, 0.2f, -10);
+            setInitialVelocity();
         }
     }
 }

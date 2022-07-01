@@ -6,21 +6,19 @@ public class MeHandle : MonoBehaviour
 {
     bool free = true;
     PantoHandle upperHandle;
+    new Collider collider;
 
     async void Start()
     {
-        GetComponent<BoxCollider>().enabled = false;
-        transform.position = new Vector3(0, 0.2f, -13);
-        Debug.Log("Pos1: " + transform.position);
         upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
-        await upperHandle.MoveToPosition(transform.position);
-        GetComponent<BoxCollider>().enabled = true;
-        Debug.Log("Pos2: " + transform.position);
-    }
+        collider = GetComponent<Collider>();
 
-    async Task ActivatePaddle() {
-        await upperHandle.SwitchTo(gameObject);
-        // upperHandle.FreeRotation();
+        // collider.enabled = false;
+        // transform.position = new Vector3(0, 0.2f, -13);
+        Debug.Log("Pos1: " + transform.position + " Panto pos: " + upperHandle.transform.position);
+        await upperHandle.MoveToPosition(transform.position);
+        Debug.Log("Pos2: " + transform.position);
+        // collider.enabled = true;
     }
 
     void FixedUpdate()
