@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using DualPantoFramework;
 using System.Threading.Tasks;
+using SpeechIO;
 
 public class ItHandle : MonoBehaviour
 {
@@ -8,11 +9,13 @@ public class ItHandle : MonoBehaviour
     bool free = true;
     public float speed;
     Rigidbody ballRb;
+    SpeechOut speechOut;
 
     void Start()
     {
         lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         ballRb = GetComponent<Rigidbody>();
+        speechOut = new SpeechOut();
     }
 
     public async Task ActivateBall() {
@@ -30,9 +33,13 @@ public class ItHandle : MonoBehaviour
         // Debug.Log("Velocity: " + ballRb.velocity + "Sxy: " + sx + " " + sy);
     }
 
-    void FixedUpdate()
+    async void FixedUpdate()
     {
         // transform.position = lowerHandle.HandlePosition(transform.position);
+        if (transform.position.z < -17f) {
+            speechOut.Speak("You have completed the level.");
+            Object.Destroy(gameObject);
+        }
     }
 
     void Update()

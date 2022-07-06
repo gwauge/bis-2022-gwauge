@@ -11,6 +11,7 @@ public class LevelScript : MonoBehaviour
         Level level = GameObject.Find("Panto").GetComponent<Level>();
         await level.PlayIntroduction();
 
+        // await GameObject.FindObjectOfType<MeHandle>().ActivatePaddle();
         await GameObject.FindObjectOfType<ItHandle>().ActivateBall();
     }
 
