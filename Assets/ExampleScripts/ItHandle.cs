@@ -10,6 +10,7 @@ public class ItHandle : MonoBehaviour
     public float speed;
     Rigidbody ballRb;
     SpeechOut speechOut;
+    public bool playing = false;
 
     void Start()
     {
@@ -21,7 +22,7 @@ public class ItHandle : MonoBehaviour
     public async Task ActivateBall() {
         // gets called in levelscript
         
-        await lowerHandle.SwitchTo(gameObject);
+        await lowerHandle.SwitchTo(gameObject,20.0f);
         
         setInitialVelocity();
     }
@@ -36,7 +37,7 @@ public class ItHandle : MonoBehaviour
     async void FixedUpdate()
     {
         // transform.position = lowerHandle.HandlePosition(transform.position);
-        if (transform.position.z < -17f) {
+        if (!playing && transform.position.z < -17f) {
             speechOut.Speak("You have completed the level.");
             Object.Destroy(gameObject);
         }
@@ -64,6 +65,11 @@ public class ItHandle : MonoBehaviour
         {
             transform.position = new Vector3(0, 0.2f, -10);
             setInitialVelocity();
+        }
+
+        if (transform.position.z > -1f) {
+            speechOut.Speak("You lost.");
+            Object.Destroy(gameObject);
         }
     }
 }

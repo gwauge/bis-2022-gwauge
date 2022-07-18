@@ -10,6 +10,7 @@ public class MeHandle : MonoBehaviour
     async void Start()
     {
         upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
+        // upperHandle.FreezeRotation();
         await upperHandle.MoveToPosition(transform.position);
     }
 
