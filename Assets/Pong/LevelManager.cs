@@ -45,7 +45,7 @@ public class LevelManager : MonoBehaviour
 
     public void NextLevel()
     {
-        speechOut.Speak("Gut gemacht! Weiter gehts.");
+        speechOut.Speak("Good Job! Continue with next Level!");
         levels[levelNumber].SetActive(false);
         levelNumber++;
         LoadLevel(levelNumber);

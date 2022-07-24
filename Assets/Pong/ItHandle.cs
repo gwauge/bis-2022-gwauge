@@ -13,6 +13,7 @@ public class ItHandle : MonoBehaviour
     LevelManager levelManager; 
     public bool playing = false;
     private Vector3 startPosition = new Vector3(0, 0.35f, -12.5f);
+    private SoundEffects soundEffects;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class ItHandle : MonoBehaviour
         lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         ballRb = GetComponent<Rigidbody>();
         speechOut = new SpeechOut();
+        soundEffects = GetComponent<SoundEffects>();
     }
 
     public async Task ResetBall() {
@@ -34,6 +36,18 @@ public class ItHandle : MonoBehaviour
         await lowerHandle.SwitchTo(gameObject,20.0f);
         
         SetInitialVelocity();
+    }
+
+    public void OnCollisionEnter(Collision collision) {
+        GameObject other = collision.gameObject;
+
+        if (other.CompareTag("Paddle")) {
+            soundEffects.PlayCollisionPaddle();
+        }
+
+        if (other.CompareTag("Wall")) {
+            soundEffects.PlayCollisionWall();
+        }
     }
 
     // void OnTriggerEnter(Collider other) {
