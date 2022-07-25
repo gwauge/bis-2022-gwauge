@@ -16,15 +16,16 @@ public class MeHandle : MonoBehaviour
         speechOut = new SpeechOut();
         levelManager = GameObject.FindObjectOfType<LevelManager>();
         upperHandle = GameObject.Find("Panto").GetComponent<UpperHandle>();
-        ActivatePaddle();    
+        ActivatePaddle();
     }
 
     public async Task ActivatePaddle()
     {
         // upperHandle.FreezeRotation();    
-
         transform.position = startPosition;
         await upperHandle.MoveToPosition(transform.position);
+        
+        // speechOut.Speak("You are currently rotated " + upperHandle.GetRotation() + " degrees");
     }
 
     void FixedUpdate()

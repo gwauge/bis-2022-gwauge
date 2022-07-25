@@ -12,6 +12,8 @@ public class LevelManager : MonoBehaviour
     GameObject panto;
     Level pantoLevel;
     SpeechOut speechOut;
+    PantoHandle lowerHandle;
+    PantoHandle upperHandle;
     public int levelNumber = 0;
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,7 @@ public class LevelManager : MonoBehaviour
         pantoLevel = panto.GetComponent<Level>();
         paddle = GameObject.FindObjectOfType<MeHandle>();
         ball = GameObject.FindObjectOfType<ItHandle>();
+        upperHandle = panto.GetComponent<UpperHandle>();
 
         // paddle.SetActive(true);
         // panto.SetActive(true);
@@ -35,6 +38,7 @@ public class LevelManager : MonoBehaviour
     }
     async void StartGame()
     {   
+        lowerHandle = GameObject.Find("Panto").GetComponent<LowerHandle>();
         await paddle.GetComponent<MeHandle>().ActivatePaddle();
     }
 
@@ -69,10 +73,19 @@ public class LevelManager : MonoBehaviour
         
         // ball.SetActive(false);
         // paddle.SetActive(false);
+
+        float startRotation = upperHandle.GetRotation();
+        // Debug.Log("rotation:" + upperHandle.transform.rotation);
+        
         await ball.ResetBall();
         await paddle.ActivatePaddle();
-
+        lowerHandle.SetMaxMovementSpeed(1.5f);
         await pantoLevel.PlayIntroduction();
+        lowerHandle.SetMaxMovementSpeed(99f);
+
+        // upperHandle.Rotate(upperHandle.GetRotation() - startRotation + 0.125f);
+        // Quaternion target = Quaternion.Euler(0, 0, 0);
+        // upperHandle.transform.rotation = target;
 
         await ball.ActivateBall();
         // paddle.transform.position = panto.GetComponent<UpperHandle>().GetPosition();

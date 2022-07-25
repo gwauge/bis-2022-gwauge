@@ -157,7 +157,7 @@ namespace DualPantoFramework
 
         private void TransitionHandler(byte pantoIndex)
         {
-            Debug.Log("[DualPanto] Transition ended " + pantoIndex);
+            // Debug.Log("[DualPanto] Transition ended " + pantoIndex);
             if (pantoIndex == 0)
             {
                 upperHandle.TweeningEnded();

@@ -20,6 +20,7 @@ namespace DualPantoFramework
         protected bool userControlledRotation = true;
         public bool isFrozen = false;
         private AudioListener listener; // needed to register spatial audio
+        private float maxMovementSpeed = 1.5f;
         void Start()
         {
             listener = new AudioListener();
@@ -27,7 +28,7 @@ namespace DualPantoFramework
         /// <summary>
         /// Moves the handle to the given position at the given speed. The handle will then be freed.
         /// </summary>
-        async public Task MoveToPosition(Vector3 position, float newSpeed = 1.0f, bool shouldFreeHandle = true)
+        async public Task MoveToPosition(Vector3 position, float newSpeed = 1f, bool shouldFreeHandle = true)
         {
             GameObject go = new GameObject();
             go.transform.position = position;
@@ -221,9 +222,14 @@ namespace DualPantoFramework
             return userControlledRotation;
         }
 
-        float MaxMovementSpeed()
+        public void SetMaxMovementSpeed(float speed)
         {
-            return 99.0f;
+            maxMovementSpeed = speed;
+        }
+
+        public float MaxMovementSpeed()
+        {
+            return 99f;
         }
 
         public void Rotate(float rotation)
